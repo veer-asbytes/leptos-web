@@ -3,28 +3,83 @@ use leptos_meta::*;
 use leptos_router::*;
 
 #[component]
+pub fn Container(children: Children) -> impl IntoView {
+    view! {<div class = "container"> {children()}</div>}
+}
+
+#[component]
+pub fn PageHeader() -> impl IntoView {
+    view! {
+    <header id="page-header">
+          <h1> "Leptos tools"</h1>
+          </header>
+
+      }
+}
+#[component]
+pub fn PageFooter() -> impl IntoView {
+    view! {
+    <header id="page-footer">
+         <p> "copyright vp" </p>
+        </header>
+
+      }
+}
+#[component]
+pub fn NavBar() -> impl IntoView {
+    view! {
+        <nav id="main-menu">
+            <ul>
+                <li class="menu-item">
+                    <a href="/">"Home"</a>
+                </li>
+                            </ul>
+        </nav>
+    }
+}
+
+#[component]
+pub fn SideBar() -> impl IntoView {
+    view! { <aside id="sidebar">Sidebar</aside> }
+}
+
+#[component]
+pub fn Content() -> impl IntoView {
+    view! {
+    <Router>
+                <main  id="content">
+                    <Routes>
+                        <Route path="" view=HomePage/>
+                        <Route path="/*any" view=NotFound/>
+                    </Routes>
+                </main>
+            </Router>
+
+          }
+}
+
+#[component]
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
 
     view! {
-        // injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
-        <Stylesheet id="leptos" href="/pkg/tools-app.css"/>
+         // injects a stylesheet into the document <head>
+         // id=leptos means cargo-leptos will hot-reload this stylesheet
+         <Stylesheet id="leptos" href="/pkg/tools-app.css"/>
 
-        // sets the document title
-        <Title text="Welcome to Leptos"/>
+         // sets the document title
+         <Title text="Tools final"/>
 
-        // content for this welcome page
-        <Router>
-            <main>
-                <Routes>
-                    <Route path="" view=HomePage/>
-                    <Route path="/*any" view=NotFound/>
-                </Routes>
-            </main>
-        </Router>
-    }
+         // content for this welcome page
+       <Container >
+        <PageHeader />
+        <NavBar />
+        <Content />
+                <SideBar />
+        <PageFooter />
+    </Container>
+     }
 }
 
 /// Renders the home page of your application.
